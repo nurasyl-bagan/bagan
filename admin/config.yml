@@ -1,0 +1,66 @@
+backend:
+  name: github
+  repo: nurasyl-bagan/bagan
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: ru
+
+collections:
+  - name: shop
+    label: Магазин
+    files:
+      - name: products
+        label: Товары
+        file: data/products.json
+        format: json
+        fields:
+          - name: items
+            label: Список товаров
+            label_singular: Товар
+            widget: list
+            summary: "{{fields.name}} — {{fields.price}} ₸"
+            fields:
+              - { name: name, label: Название, widget: string }
+              - { name: sub, label: Подзаголовок, widget: string }
+              - name: cat
+                label: Цвет
+                widget: select
+                options: ["Қара", "Ақ"]
+                default: "Қара"
+              - { name: price, label: "Цена, ₸", widget: number, value_type: int, min: 0, step: 500 }
+              - { name: flag, label: Плашка, widget: string, required: false }
+              - name: sizes
+                label: Размеры в наличии
+                widget: select
+                multiple: true
+                options: ["XS", "S", "M", "L", "XL", "XXL"]
+                default: ["S", "M", "L", "XL"]
+              - { name: img, label: Главное фото, widget: image, required: false }
+              - name: gallery
+                label: Другие фото
+                widget: list
+                required: false
+                field: { name: photo, label: Фото, widget: image }
+              - { name: desc, label: Описание, widget: text, required: false }
+              - { name: sold, label: Распродано, widget: boolean, default: false, required: false }
+
+      - name: settings
+        label: Настройки сайта
+        file: data/settings.json
+        format: json
+        fields:
+          - { name: whatsapp, label: "WhatsApp (только цифры)", widget: string }
+          - { name: whatsapp_show, label: "WhatsApp (как показать)", widget: string }
+          - { name: instagram, label: "Ссылка на Instagram", widget: string }
+          - { name: city, label: Город, widget: string }
+          - { name: hero_text, label: "Текст на главном экране", widget: text }
+          - { name: about_1, label: "О бренде — абзац 1", widget: text }
+          - { name: about_2, label: "О бренде — абзац 2", widget: text }
+          - { name: ship_pay, label: "Оплата — текст", widget: text }
+          - { name: ship_city, label: "Доставка по городу", widget: text }
+          - { name: ship_city_days, label: "Срок по городу", widget: string }
+          - { name: ship_region, label: "Доставка по регионам", widget: text }
+          - { name: ship_region_days, label: "Срок по регионам", widget: string }
